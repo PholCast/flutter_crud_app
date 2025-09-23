@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_crud_app/pages/users_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -45,52 +46,12 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: SingleChildScrollView(
+      body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.3),
-                    spreadRadius: 3,
-                    blurRadius: 5,
-                    offset: Offset(0, 3),
-                  ),
-                ],
-                borderRadius: BorderRadius.circular(12), // borde redondeado
-              ),
-              child: Material(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                child: ListTile(
-                  leading: CircleAvatar(
-                    radius: 40,
-                    backgroundImage: AssetImage('assets/images/blue-circle.jpg'),
-                  ),
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Usuario 1"),
-                      Text(
-                        "Info usuario 1",
-                        style: TextStyle(color: Colors.grey[600], fontSize: 14),
-                      ),
-                    ],
-                  ),
-                  minTileHeight: 120,
-                  trailing: Icon(
-                    Icons.delete,
-                    color: Colors.red,
-                    size: 35,
-                  ),
-                  onTap: () => print('ListTile tapped'),
-                ),
-              ),
-            ),
+          children: <Widget>[ 
+            ElevatedButton(onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => UsersPage()));
+            }, child: Text('Go to Users Page'))
 
           ],
         ),
