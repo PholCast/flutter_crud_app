@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_crud_app/models/user_model.dart';
 
-class userTile extends StatelessWidget {
-  const userTile({super.key, required this.user});
+class UserTile extends StatelessWidget {
+  const UserTile({super.key, required this.user});
   final User user;
 
   @override
@@ -26,7 +26,7 @@ class userTile extends StatelessWidget {
                 child: ListTile(
                   leading: CircleAvatar(
                     radius: 40,
-                    backgroundImage: AssetImage('assets/images/blue-circle.jpg'),
+                    backgroundImage: AssetImage('assets/images/blue-circle.jpg'), //!agregar un if para ver si tiene imagen o no
                   ),
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,11 +40,11 @@ class userTile extends StatelessWidget {
                     ],
                   ),
                   minTileHeight: 120,
-                  trailing: Icon(
+                  trailing: IconButton(onPressed: ()=>{print('borrando usuario...')}, icon: Icon( //!hay que cambiar este onpressed
                     Icons.delete,
                     color: Colors.red,
                     size: 35,
-                  ),
+                  ),) ,
                   onTap: () => print('ListTile tapped'),
                 ),
               ),

@@ -83,8 +83,24 @@ class _UsersPageState extends State<UsersPage> {
     ),
   ];
 
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
   String _searchValue = '';
+
+  List<User> get _filteredUsers{
+    if(_searchValue.isEmpty) return users;
+    final query = _searchValue.toLowerCase();
+
+    return users
+        .where(
+          (user) => 
+             user.firstName.toLowerCase().contains(query) ||
+             user.lastName.toLowerCase().contains(query) ||
+             user.username.toLowerCase().contains(query) ||
+             user.title.toLowerCase().contains(query) ||
+             ('${user.firstName} ${user.lastName}').toLowerCase().contains(query)
+        )
+        .toList();
+  }
 
 
   @override
@@ -113,10 +129,10 @@ class _UsersPageState extends State<UsersPage> {
         SizedBox(
           height: 800,
           child: ListView.builder(
-            itemCount: users.length,
+            itemCount: _filteredUsers.length,
             itemBuilder:(context, index){
-              final user = users[index];
-              return userTile(user: user);
+              final user = _filteredUsers[index];
+              return UserTile(key: Key('$user.id'), user: user); //!mirar si toca cambiarlo por el nombre mejor
             },),
         )
       ],),)
