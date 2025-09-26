@@ -1,5 +1,5 @@
 class User {
-  final String id;
+  final int id;
   final String firstName;
   final String lastName;
   final String username;
@@ -18,4 +18,18 @@ class User {
     required this.title, //* company / title 
     this.image,
   });
+
+  factory User.fromJson(Map<String, dynamic> data){
+    return User(
+      id: data['id'] as int,
+      firstName: data['firstName'],
+      lastName: data['lastName'],
+      username: data['username']  ?? '-',
+      email: data['email'] ?? '-',
+      age: data['age'],
+      image: data['image'],
+      title: (data['company'] is Map && data['company']?['title'] != null) 
+                 ? data['company']['title'] : null,
+    );
+  }
 }

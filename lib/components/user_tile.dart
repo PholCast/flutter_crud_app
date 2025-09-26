@@ -26,7 +26,10 @@ class UserTile extends StatelessWidget {
                 child: ListTile(
                   leading: CircleAvatar(
                     radius: 40,
-                    backgroundImage: AssetImage('assets/images/blue-circle.jpg'), //!agregar un if para ver si tiene imagen o no
+                    backgroundImage: 
+                        user.image != null && user.image!.isNotEmpty 
+                        ? NetworkImage(user.image!) 
+                        : AssetImage('assets/images/blue-circle.jpg'), //!agregar un if para ver si tiene imagen o no
                   ),
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
