@@ -3,8 +3,8 @@ import 'package:flutter_crud_app/models/user_model.dart';
 import 'package:flutter_crud_app/models/users_response.dart';
 import 'package:http/http.dart' as http; // * libreria http para consumir la api
 
-class UserRepository {
-  static const String baseUrl = 'https://dummyjson.com/users';
+class UserService {
+  final String baseUrl = 'https://dummyjson.com/users';
 
   Future<UsersResponse> fetchUsers({
     required int limit,

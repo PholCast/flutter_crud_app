@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_crud_app/models/user_model.dart';
+import 'package:flutter_crud_app/screens/form_page.dart';
+import 'package:flutter_crud_app/screens/user_detail_page.dart';
 
 class UserTile extends StatelessWidget {
   const UserTile({super.key, required this.user});
@@ -42,13 +44,16 @@ class UserTile extends StatelessWidget {
                       ),
                     ],
                   ),
-                  minTileHeight: 120,
+                  minTileHeight: 100,
                   trailing: IconButton(onPressed: ()=>{print('borrando usuario...')}, icon: Icon( //!hay que cambiar este onpressed
-                    Icons.delete,
+                    Icons.delete_outline_rounded,
                     color: Colors.red,
                     size: 35,
                   ),) ,
-                  onTap: () => print('ListTile tapped'),
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => UserDetailPage(user: user)),
+            ),
                 ),
               ),
             );
