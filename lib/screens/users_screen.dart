@@ -3,17 +3,17 @@ import 'package:provider/provider.dart';
 import 'package:flutter_crud_app/components/error_tile.dart';
 import 'package:flutter_crud_app/components/user_tile.dart';
 import 'package:flutter_crud_app/models/user_model.dart';
-import 'package:flutter_crud_app/screens/form_page.dart';
+import 'package:flutter_crud_app/screens/form_screen.dart';
 import 'package:flutter_crud_app/providers/user_provider.dart';
 
-class UsersPage extends StatefulWidget {
-  const UsersPage({super.key});
+class UsersScreen extends StatefulWidget {
+  const UsersScreen({super.key});
 
   @override
-  State<UsersPage> createState() => _UsersPageState();
+  State<UsersScreen> createState() => _UsersScreenState();
 }
 
-class _UsersPageState extends State<UsersPage> {
+class _UsersScreenState extends State<UsersScreen> {
   final TextEditingController _controller = TextEditingController();
   final ScrollController _scrollController = ScrollController();
   String _searchValue = '';
@@ -46,6 +46,24 @@ class _UsersPageState extends State<UsersPage> {
         ('${u.firstName} ${u.lastName}').toLowerCase().contains(q)).toList();
   }
 
+  
+  Future<void> _deleteUser(User u) async {
+    try {
+      await context.read<UserProvider>().deleteUser(u.id);
+
+      if(!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Usuario eliminado')),
+      );
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error al eliminar: $e')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +75,7 @@ class _UsersPageState extends State<UsersPage> {
             icon: const Icon(Icons.add_circle_rounded, size: 28),
             onPressed: () => Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => const FormPage()),
+              MaterialPageRoute(builder: (_) => const FormScreen()),
             ),
           ),
         ],
@@ -115,7 +133,7 @@ class _UsersPageState extends State<UsersPage> {
                           setState(() => _searchValue = value.toLowerCase()),
                     ),
                   ),
-                  ...filtered.map((u) => UserTile(user: u)),
+                  ...filtered.map((u) => UserTile(user: u,onDelete: () => _deleteUser(u))),
                   if (prov.isLoading)
                     const Padding(
                       padding: EdgeInsets.symmetric(vertical: 16),

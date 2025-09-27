@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_crud_app/models/user_model.dart';
-import 'package:flutter_crud_app/screens/form_page.dart';
-import 'package:flutter_crud_app/screens/user_detail_page.dart';
+import 'package:flutter_crud_app/screens/user_detail_screen.dart';
 
 class UserTile extends StatelessWidget {
-  const UserTile({super.key, required this.user});
+  const UserTile({super.key, required this.user, required this.onDelete});
   final User user;
+  final VoidCallback onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class UserTile extends StatelessWidget {
                     offset: Offset(0, 3),
                   ),
                 ],
-                borderRadius: BorderRadius.circular(12), // borde redondeado
+                borderRadius: BorderRadius.circular(12),
               ),
               child: Material(
                 color: Colors.white,
@@ -45,14 +45,14 @@ class UserTile extends StatelessWidget {
                     ],
                   ),
                   minTileHeight: 100,
-                  trailing: IconButton(onPressed: ()=>{print('borrando usuario...')}, icon: Icon( //!hay que cambiar este onpressed
+                  trailing: IconButton(onPressed: onDelete, icon: Icon( //!hay que cambiar este onpressed
                     Icons.delete_outline_rounded,
                     color: Colors.red,
                     size: 35,
                   ),) ,
                   onTap: () => Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => UserDetailPage(user: user)),
+                    MaterialPageRoute(builder: (_) => UserDetailScreen(user: user)),
             ),
                 ),
               ),

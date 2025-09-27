@@ -28,9 +28,15 @@ class UserService {
       skip: (data['skip'] as int?)?.toInt() ?? skip,
       limit:(data['limit'] as int?)?.toInt() ?? limit
     );
-    
+  }
 
-    
+  Future<void> deleteUser(int id) async{
+    final uri = Uri.parse('$baseUrl/$id');
+    final response = await http.delete(uri);
+
+    if(response.statusCode != 200){
+      throw Exception('HTTP ${response.statusCode}: ${response.reasonPhrase} (Error al borrar usuario)');
+    }
 
   }
 }

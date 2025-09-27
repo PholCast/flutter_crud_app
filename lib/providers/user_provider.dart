@@ -55,4 +55,17 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
     await getUsers();
   }
+
+  Future<void> deleteUser(int id) async {
+  try {
+    await _service.deleteUser(id);
+    _users.removeWhere((user) => user.id == id);
+    _total--; // opcional, ajusta el total
+    notifyListeners();
+  } catch (e) {
+    _error = e.toString();
+    notifyListeners();
+  }
+}
+
 }

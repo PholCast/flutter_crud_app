@@ -1,10 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_crud_app/models/user_model.dart';
+import 'package:flutter_crud_app/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 
-class UserDetailPage extends StatelessWidget {
+class UserDetailScreen extends StatefulWidget {
+  const UserDetailScreen({super.key, required this.user});
   final User user;
 
-  const UserDetailPage({super.key, required this.user});
+  @override
+  State<UserDetailScreen> createState() => _UserDetailScreenState();
+}
+
+class _UserDetailScreenState extends State<UserDetailScreen> {
+
+  late User user;
+
+  @override
+  void initState() {
+    super.initState();
+    user = widget.user;
+  }
+
+  onDeleteUser() async {
+      try {
+        await context.read<UserProvider>().deleteUser(user.id);
+
+        if (!mounted) return;
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Usuario eliminado')),
+        );
+
+        Navigator.pop(context);
+      } catch (e) {
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error al eliminar: $e')),
+        );
+      }
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -221,29 +255,49 @@ class UserDetailPage extends StatelessWidget {
         ),
       ),
 
-      // Botón de eliminar abajo
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(16),
-        child: ElevatedButton.icon(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.red,
-            padding: const EdgeInsets.symmetric(vertical: 14),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
+        padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 16),
+        child: Row(
+          children: [
+            Expanded(
+              child: OutlinedButton.icon(
+                style: OutlinedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  side: BorderSide(color: Color.fromRGBO(0, 75, 254, 1), width: 3), 
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                onPressed: ()=> print("tried to Edit user"),
+                icon: const Icon(Icons.mode_edit, color: Color.fromRGBO(0, 75, 254, 1)),
+                label: const Text(
+                  'Editar',
+                  style: TextStyle(color: Color.fromRGBO(0, 75, 254, 1), fontSize: 18),
+                ),
+              ),
             ),
-          ),
-          onPressed: () {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(const SnackBar(content: Text("Usuario eliminado")));
-          },
-          icon: const Icon(Icons.delete, color: Colors.white),
-          label: const Text(
-            "Eliminar",
-            style: TextStyle(color: Colors.white, fontSize: 18),
-          ),
+              const SizedBox(width: 16),
+            Expanded(
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                onPressed: onDeleteUser,
+                icon: const Icon(Icons.delete, color: Colors.white),
+                label: const Text(
+                  'Eliminar',
+                  style: TextStyle(color: Colors.white, fontSize: 18),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
+  
   }
 }

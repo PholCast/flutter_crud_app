@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_crud_app/providers/user_provider.dart';
-import 'package:flutter_crud_app/screens/users_page.dart';
+import 'package:flutter_crud_app/screens/users_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Color.fromRGBO(0, 75, 254, 1), brightness: Brightness.light),
         appBarTheme: AppBarTheme(backgroundColor: Color.fromRGBO(0, 75, 254, 1), foregroundColor: Colors.white),
       ),
-      home: const UsersPage(),
+      home: const UsersScreen(),
     );
   }
 }
