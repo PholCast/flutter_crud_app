@@ -31,7 +31,7 @@ class UserTile extends StatelessWidget {
                     backgroundImage: 
                         user.image != null && user.image!.isNotEmpty 
                         ? NetworkImage(user.image!) 
-                        : AssetImage('assets/images/blue-circle.jpg'), //!agregar un if para ver si tiene imagen o no
+                        : AssetImage('assets/images/blue-circle.jpg'),
                   ),
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,7 +45,7 @@ class UserTile extends StatelessWidget {
                     ],
                   ),
                   minTileHeight: 100,
-                  trailing: IconButton(onPressed: onDelete, icon: Icon( //!hay que cambiar este onpressed
+                  trailing: IconButton(onPressed: onDelete, icon: Icon(
                     Icons.delete_outline_rounded,
                     color: Colors.red,
                     size: 35,

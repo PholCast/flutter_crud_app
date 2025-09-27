@@ -8,7 +8,7 @@ class User {
   final String phone;
   final int age;
   final String country;
-  final String title; //* company / title 
+  final String title; //* company / title
   final String? image;
 
   const User({
@@ -21,25 +21,41 @@ class User {
     required this.phone,
     required this.age,
     required this.country,
-    required this.title, //* company / title 
+    required this.title, //* company / title
     this.image,
   });
 
-  factory User.fromJson(Map<String, dynamic> data){
+  factory User.fromJson(Map<String, dynamic> data) {
     return User(
       id: data['id'] as int,
       firstName: data['firstName'],
       lastName: data['lastName'],
-      username: data['username']  ?? '-',
+      username: data['username'] ?? '-',
       email: data['email'] ?? '-',
       gender: data['gender'],
       phone: data['phone'],
       age: data['age'],
-      country: (data['address'] is Map && data['address']?['country'] != null) 
-                 ? data['address']['country'] : null,
+      country: (data['address'] is Map && data['address']?['country'] != null)
+          ? data['address']['country']
+          : null,
       image: data['image'],
-      title: (data['company'] is Map && data['company']?['title'] != null) 
-                 ? data['company']['title'] : null,
+      title: (data['company'] is Map && data['company']?['title'] != null)
+          ? data['company']['title']
+          : null,
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'firstName': firstName,
+    'lastName': lastName,
+    'email': email,
+    'username': username,
+    'phone': phone,
+    'gender': gender,
+    'age': age,
+    'address': {'country': country},
+    'company': {'title': title},
+    'image': image,
+  };
 }

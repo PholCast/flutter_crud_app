@@ -39,4 +39,36 @@ class UserService {
     }
 
   }
+
+  Future<User> updateUser( User updatedData) async {
+    final uri = Uri.parse('$baseUrl/${updatedData.id}');
+    final response = await http.patch(
+      uri,
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode(updatedData.toJson()),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('HTTP ${response.statusCode}: ${response.reasonPhrase} (Error al actualizar usuario)');
+    }
+    final data = json.decode(response.body) as Map<String, dynamic>;
+    return User.fromJson(data);
+  }
+
+
+  Future<User> createUser(User newUserData) async {
+    final uri = Uri.parse('$baseUrl/add');
+    final response = await http.post(
+      uri,
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode(newUserData.toJson()),
+    );
+
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      throw Exception('HTTP ${response.statusCode}: ${response.reasonPhrase} (Error al crear usuario)');
+    }
+    final data = json.decode(response.body) as Map<String, dynamic>;
+    return User.fromJson(data);
+  }
+
 }

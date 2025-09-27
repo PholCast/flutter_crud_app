@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_crud_app/models/user_model.dart';
 import 'package:flutter_crud_app/providers/user_provider.dart';
+import 'package:flutter_crud_app/screens/form_screen.dart';
 import 'package:provider/provider.dart';
 
 class UserDetailScreen extends StatefulWidget {
@@ -64,9 +65,9 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
               ),
               child: CircleAvatar(
                 radius: 70,
-                backgroundImage: user.image != null
+                backgroundImage: user.image != null && user.image!.isNotEmpty
                     ? NetworkImage(user.image!)
-                    : const AssetImage("assets/images/default_avatar.png")
+                    : const AssetImage('assets/images/blue-circle.jpg')
                           as ImageProvider,
               ),
             ),
@@ -119,7 +120,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                   ),
                 ),
 
-                // Age
+                
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 12),
@@ -153,7 +154,6 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                   ),
                 ),
 
-                // Username
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 12),
@@ -268,7 +268,10 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                onPressed: ()=> print("tried to Edit user"),
+                onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => FormScreen(user: user)),
+                ),
                 icon: const Icon(Icons.mode_edit, color: Color.fromRGBO(0, 75, 254, 1)),
                 label: const Text(
                   'Editar',

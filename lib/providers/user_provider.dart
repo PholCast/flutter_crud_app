@@ -12,7 +12,6 @@ class UserProvider extends ChangeNotifier {
   bool _firstLoadDone = false;
   String? _error;
 
-
   List<User> get users => List.unmodifiable(_users);
   int get total => _total;
   int get pageSize => _pageSize;
@@ -57,15 +56,55 @@ class UserProvider extends ChangeNotifier {
   }
 
   Future<void> deleteUser(int id) async {
+    try {
+      if (id != 209) {
+        await _service.deleteUser(id);
+        print('si se hizo el delete en el service');
+      }
+
+      _users.removeWhere((user) => user.id == id);
+      _total--; 
+      notifyListeners();
+    } catch (e) {
+      _error = e.toString();
+      notifyListeners();
+    }
+  }
+
+  Future<void> createUser(User user) async {
+    try {
+      final newUser = await _service.createUser(user);
+      print('el id del usuario nuevo es ${newUser.id}');
+      _users.insert(0, newUser); 
+      _total++;
+      _error = null;
+      notifyListeners();
+    } catch (e) {
+      _error = e.toString();
+      notifyListeners();
+    }
+  }
+
+Future<void> updateUser(User user) async {
   try {
-    await _service.deleteUser(id);
-    _users.removeWhere((user) => user.id == id);
-    _total--; // opcional, ajusta el total
+    if (user.id < 209) {
+
+      final updatedUser = await _service.updateUser(user);
+      final index = _users.indexWhere((u) => u.id == user.id);
+      
+      if (index != -1) _users[index] = updatedUser;
+      print('Update en API');
+    } else {
+      final index = _users.indexWhere((u) => u.id == user.id);
+      if (index != -1) _users[index] = user;
+      print('Update local, id=${user.id}');
+    }
+
+    _error = null;
     notifyListeners();
   } catch (e) {
     _error = e.toString();
     notifyListeners();
   }
-}
-
+  }
 }
