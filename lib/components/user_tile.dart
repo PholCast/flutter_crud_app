@@ -9,23 +9,7 @@ class UserTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-              margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.3),
-                    spreadRadius: 3,
-                    blurRadius: 5,
-                    offset: Offset(0, 3),
-                  ),
-                ],
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Material(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                child: ListTile(
+    return ListTile(
                   leading: CircleAvatar(
                     radius: 40,
                     backgroundImage: 
@@ -44,18 +28,16 @@ class UserTile extends StatelessWidget {
                       ),
                     ],
                   ),
-                  minTileHeight: 100,
+                  minTileHeight: 90,
                   trailing: IconButton(onPressed: onDelete, icon: Icon(
-                    Icons.delete_outline_rounded,
+                    Icons.close_outlined,
                     color: Colors.red,
-                    size: 35,
+                    size: 25,
                   ),) ,
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(builder: (_) => UserDetailScreen(user: user)),
             ),
-                ),
-              ),
-            );
+                );
   }
 }

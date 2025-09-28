@@ -54,12 +54,12 @@ class _UsersScreenState extends State<UsersScreen> {
       if(!mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Usuario eliminado')),
+        const SnackBar(content: Text('User deleted')),
       );
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error al eliminar: $e')),
+        SnackBar(content: Text('Error deleting: $e')),
       );
     }
   }
@@ -70,6 +70,8 @@ class _UsersScreenState extends State<UsersScreen> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Users Page'),
+        backgroundColor: Color.fromRGBO(0, 75, 254, 1),
+        foregroundColor: Colors.white,
         actions: [
           IconButton(
             icon: const Icon(Icons.add_circle_rounded, size: 28),
@@ -81,16 +83,7 @@ class _UsersScreenState extends State<UsersScreen> {
         ],
       ),
 
-      body: Stack(
-      children: [
-        SizedBox.expand(
-          child: Image.asset(
-            'assets/images/background.png',
-            fit: BoxFit.cover,
-          ),
-        ),
-      
-      Consumer<UserProvider>(
+      body: Consumer<UserProvider>(
         builder: (context, prov, _) {
           if (prov.error != null) {
             return Center(
@@ -116,17 +109,18 @@ class _UsersScreenState extends State<UsersScreen> {
                       controller: _controller,
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Colors.white,
-                        prefixIconColor: Color.fromRGBO(0, 75, 254, 1),
+                        fillColor: Color.fromRGBO(246, 245, 244,1),
+                        prefixIconColor: Color.fromRGBO(98, 98, 98,1),
                         hintText: 'Buscar',
-                        hintStyle: TextStyle(color: Colors.grey.shade700),
-                        prefixIcon: const Icon(Icons.search),
+                        hintStyle: TextStyle(color: Color.fromRGBO(98, 98, 98,1)),
+                        prefixIcon: const Icon(Icons.search,size: 27,),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(60),
+                          borderSide: BorderSide.none,
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(60),
-                          borderSide: const BorderSide(color: Colors.blueAccent),
+                          borderSide: const BorderSide(color: Color.fromRGBO(0, 75, 254, 1),width: 2.5),
                         ),
                       ),
                       onChanged: (value) =>
@@ -144,7 +138,7 @@ class _UsersScreenState extends State<UsersScreen> {
             ),
           );
         },
-      ),])
+      )
     );
   }
 }

@@ -29,14 +29,14 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
         if (!mounted) return;
 
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Usuario eliminado')),
+          const SnackBar(content: Text('User deleted')),
         );
 
         Navigator.pop(context);
       } catch (e) {
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error al eliminar: $e')),
+          SnackBar(content: Text('Error while deleting: $e')),
         );
       }
     }
@@ -181,24 +181,30 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
               ],
             ),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 30),
 
             Padding(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.symmetric(vertical: 16,horizontal: 10),
               child:
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Row(
                     children: [
-                      const Text(
-                        "Email",
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        user.email,
-                        style: const TextStyle(fontSize: 15, color: Colors.black87),
+                      Icon(Icons.email_outlined),
+                      SizedBox(width: 20 ,),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Email",
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            user.email,
+                            style: const TextStyle(fontSize: 15, color: Colors.black87),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -209,21 +215,27 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
             const SizedBox(height: 16),
 
             Padding(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.symmetric(vertical: 16,horizontal: 10),
               child:
             Align(
               alignment: Alignment.centerLeft,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Row(
                 children: [
-                  const Text(
-                    "Phone",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    user.phone,
-                    style: const TextStyle(fontSize: 15, color: Colors.black87),
+                  Icon(Icons.phone_outlined),
+                  SizedBox(width: 20 ,),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Phone",
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        user.phone,
+                        style: const TextStyle(fontSize: 15, color: Colors.black87),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -232,21 +244,27 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
             const SizedBox(height: 16),
 
             Padding(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.symmetric(vertical: 16,horizontal: 10),
               child:
             Align(
               alignment: Alignment.centerLeft,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Row(
                 children: [
-                  const Text(
-                    "Country",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    user.country ?? "-",
-                    style: const TextStyle(fontSize: 15, color: Colors.black87),
+                  Icon(Icons.flag_outlined),
+                  SizedBox(width: 20 ,),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Country",
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        user.country ?? "-",
+                        style: const TextStyle(fontSize: 15, color: Colors.black87),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -274,7 +292,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                 ),
                 icon: const Icon(Icons.mode_edit, color: Color.fromRGBO(0, 75, 254, 1)),
                 label: const Text(
-                  'Editar',
+                  'Edit',
                   style: TextStyle(color: Color.fromRGBO(0, 75, 254, 1), fontSize: 18),
                 ),
               ),
@@ -292,7 +310,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                 onPressed: onDeleteUser,
                 icon: const Icon(Icons.delete, color: Colors.white),
                 label: const Text(
-                  'Eliminar',
+                  'Delete',
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
               ),

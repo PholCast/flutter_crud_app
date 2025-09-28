@@ -58,8 +58,11 @@ class UserProvider extends ChangeNotifier {
   Future<void> deleteUser(int id) async {
     try {
       if (id != 209) {
-        await _service.deleteUser(id);
-        print('si se hizo el delete en el service');
+        final deleted = await _service.deleteUser(id);
+        print('si se hizo el delete en el service y deleted es: $deleted');
+
+        if(!deleted) return;
+        
       }
 
       _users.removeWhere((user) => user.id == id);
@@ -74,7 +77,7 @@ class UserProvider extends ChangeNotifier {
   Future<void> createUser(User user) async {
     try {
       final newUser = await _service.createUser(user);
-      print('el id del usuario nuevo es ${newUser.id}');
+      print('new user id is: ${newUser.id}');
       _users.insert(0, newUser); 
       _total++;
       _error = null;

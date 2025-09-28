@@ -30,13 +30,16 @@ class UserService {
     );
   }
 
-  Future<void> deleteUser(int id) async{
+  Future<bool> deleteUser(int id) async{
     final uri = Uri.parse('$baseUrl/$id');
     final response = await http.delete(uri);
 
     if(response.statusCode != 200){
-      throw Exception('HTTP ${response.statusCode}: ${response.reasonPhrase} (Error al borrar usuario)');
+      throw Exception('HTTP ${response.statusCode}: ${response.reasonPhrase} (Error deleting user)');
     }
+
+    final data = json.decode(response.body) as Map<String, dynamic>;
+    return data['isDeleted'] == true;
 
   }
 
@@ -49,7 +52,7 @@ class UserService {
     );
 
     if (response.statusCode != 200) {
-      throw Exception('HTTP ${response.statusCode}: ${response.reasonPhrase} (Error al actualizar usuario)');
+      throw Exception('HTTP ${response.statusCode}: ${response.reasonPhrase} (Error updating user)');
     }
     final data = json.decode(response.body) as Map<String, dynamic>;
     return User.fromJson(data);
@@ -65,7 +68,7 @@ class UserService {
     );
 
     if (response.statusCode != 200 && response.statusCode != 201) {
-      throw Exception('HTTP ${response.statusCode}: ${response.reasonPhrase} (Error al crear usuario)');
+      throw Exception('HTTP ${response.statusCode}: ${response.reasonPhrase} (Error creating user)');
     }
     final data = json.decode(response.body) as Map<String, dynamic>;
     return User.fromJson(data);

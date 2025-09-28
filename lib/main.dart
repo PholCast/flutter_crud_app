@@ -22,11 +22,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter CRUD app',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Color.fromRGBO(0, 75, 254, 1), brightness: Brightness.light),
-        appBarTheme: AppBarTheme(backgroundColor: Color.fromRGBO(0, 75, 254, 1), foregroundColor: Colors.white),
+        appBarTheme: AppBarTheme(backgroundColor: Colors.white, foregroundColor: Color.fromRGBO(0, 75, 254, 1)),
+        scaffoldBackgroundColor: Colors.white
       ),
       home: const UsersScreen(),
     );

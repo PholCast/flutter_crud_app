@@ -25,6 +25,22 @@ class _FormScreenState extends State<FormScreen> {
   late TextEditingController _countryCtrl;
   late TextEditingController _titleCtrl;
 
+  InputDecoration _inputDecoration(String label, {IconData? icon}) {
+    return InputDecoration(
+      prefixIcon: icon != null ? Icon(icon) : null,
+      prefixIconColor: const Color.fromRGBO(0, 75, 254, 1),
+      labelText: label,
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(15),
+        borderSide: const BorderSide(
+          color: Color.fromRGBO(0, 75, 254, 1),
+          width: 2.5,
+        ),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -73,22 +89,24 @@ class _FormScreenState extends State<FormScreen> {
     if (widget.user == null) {
       await prov.createUser(newUser);
 
-      if(!mounted) return;
+      if (!mounted) return;
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text("Usuario creado")));
+      ).showSnackBar(const SnackBar(content: Text("User Created")));
     } else {
       await prov.updateUser(newUser);
 
-      if(!mounted) return;
+      if (!mounted) return;
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text("Usuario actualizado")));
+      ).showSnackBar(const SnackBar(content: Text("User information updated")));
     }
 
     if (mounted) {
-    Navigator.pushReplacement(context,
-    MaterialPageRoute(builder: (context) => UsersScreen()));
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => UsersScreen()),
+      );
     }
   }
 
@@ -97,66 +115,131 @@ class _FormScreenState extends State<FormScreen> {
     final isEditing = widget.user != null;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(isEditing ? "Editar Usuario" : "Crear Usuario"),
-      ),
+      appBar: AppBar(title: Text(isEditing ? "Edit User" : "Create User")),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Form(
           key: _formKey,
           child: ListView(
             children: [
+              SizedBox(height: 14),
               TextFormField(
+                cursorColor: Color.fromRGBO(0, 75, 254, 1),
                 controller: _firstNameCtrl,
-                decoration: const InputDecoration(labelText: "Nombre"),
-                validator: (v) => v!.isEmpty ? "Campo requerido" : null,
+                decoration: _inputDecoration('First Name', icon: Icons.person),
+                validator: (v) {
+                  if (v == null || v.trim().isEmpty) return 'First name is required';
+                  if (v.trim().length < 2) return 'At least 2 characters';
+                  if (!RegExp(r'^[a-zA-Z\s]+$').hasMatch(v)) return 'Only letters allowed';
+                  return null;
+                },
               ),
+              SizedBox(height: 24),
               TextFormField(
+                cursorColor: Color.fromRGBO(0, 75, 254, 1),
                 controller: _lastNameCtrl,
-                decoration: const InputDecoration(labelText: "Apellido"),
-                validator: (v) => v!.isEmpty ? "Campo requerido" : null,
+                decoration: _inputDecoration(
+                  'Last name',
+                  icon: Icons.person_outline,
+                ),
+                validator: (v) {
+                  if (v == null || v.trim().isEmpty) return 'Last name is required';
+                  if (v.trim().length < 2) return 'At least 2 characters';
+                  if (!RegExp(r'^[a-zA-Z\s]+$').hasMatch(v)) return 'Only letters allowed';
+                  return null;
+                },
               ),
+              SizedBox(height: 24),
               TextFormField(
+                cursorColor: Color.fromRGBO(0, 75, 254, 1),
                 controller: _emailCtrl,
-                decoration: const InputDecoration(labelText: "Email"),
-                validator: (v) => v!.isEmpty ? "Campo requerido" : null,
+                decoration: _inputDecoration('Email', icon: Icons.email),
+                validator: (v) {
+                  if (v == null || v.trim().isEmpty) return 'Email is required';
+                  if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(v)) return 'Invalid email';
+                  return null;
+                },
               ),
+              SizedBox(height: 24),
               TextFormField(
+                cursorColor: Color.fromRGBO(0, 75, 254, 1),
                 controller: _usernameCtrl,
-                decoration: const InputDecoration(labelText: "Username"),
+                decoration: _inputDecoration(
+                  'Username',
+                  icon: Icons.account_circle_outlined,
+                ),
+                validator: (v) {
+                  if (v == null || v.trim().isEmpty) return 'Username is required';
+                  if (v.contains(' ')) return 'No spaces allowed';
+                  if (v.length < 4) return 'At least 4 characters';
+                  return null;
+                },
               ),
+              SizedBox(height: 24),
               TextFormField(
+                cursorColor: Color.fromRGBO(0, 75, 254, 1),
                 controller: _phoneCtrl,
-                decoration: const InputDecoration(labelText: "Teléfono"),
-              ),
-              TextFormField(
-                controller: _ageCtrl,
-                decoration: const InputDecoration(labelText: "Edad"),
                 keyboardType: TextInputType.number,
+                decoration: _inputDecoration('Phone', icon: Icons.phone),
+                validator: (v) => v == null || v.trim().isEmpty
+                    ? 'Phone number is required'
+                    : null,
               ),
+              SizedBox(height: 24),
               TextFormField(
+                cursorColor: Color.fromRGBO(0, 75, 254, 1),
+                controller: _ageCtrl,
+                decoration: _inputDecoration('Age', icon: Icons.cake),
+                keyboardType: TextInputType.number,
+                validator: (v) {
+                  if (v == null || v.trim().isEmpty) return 'Age is required';
+                  final age = int.tryParse(v);
+                  if (age == null) return 'Must be a number';
+                  if (age <= 0 || age > 120) return 'Invalid age';
+                  return null;
+                },
+              ),
+              SizedBox(height: 24),
+              TextFormField(
+                cursorColor: Color.fromRGBO(0, 75, 254, 1),
                 controller: _countryCtrl,
-                decoration: const InputDecoration(labelText: "País"),
+                decoration: _inputDecoration('Country', icon: Icons.flag),
+                validator: (v) {
+                  if (v == null || v.trim().isEmpty) return 'Country is required';
+                  if (!RegExp(r'^[a-zA-Z\s]+$').hasMatch(v)) return 'Only letters allowed';
+                  return null;
+                },
               ),
+              SizedBox(height: 24),
               TextFormField(
+                cursorColor: Color.fromRGBO(0, 75, 254, 1),
                 controller: _titleCtrl,
-                decoration: const InputDecoration(labelText: "Título"),
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _onSubmit,
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                child: Text(
-                  isEditing ? "Actualizar" : "Crear",
-                  style: const TextStyle(fontSize: 18),
-                ),
+                decoration: _inputDecoration('Title', icon: Icons.work),
+                validator: (v) {
+                  if (v == null || v.trim().isEmpty) return 'Title is required';
+                  if (v.trim().length < 2) return 'At least 2 characters';
+                  return null;
+                },
               ),
             ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 30),
+        child: ElevatedButton.icon(
+          onPressed: _onSubmit,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color.fromRGBO(0, 75, 254, 1),
+            padding: const EdgeInsets.symmetric(vertical: 14),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          icon: Icon(Icons.save, color: Colors.white),
+          label: Text(
+            isEditing ? "Update" : "Create",
+            style: const TextStyle(fontSize: 18, color: Colors.white),
           ),
         ),
       ),
