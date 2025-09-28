@@ -267,7 +267,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          user.country ?? "-",
+                          user.country,
                           style: const TextStyle(fontSize: 15, color: Colors.black87),
                         ),
                       ],
