@@ -14,7 +14,7 @@ Se usó la estructura de archivos indicada:
 
 ## Explicación de la API seleccionada
 
-La API DummyJSON proporciona un conjunto de datos de usuarios falsos junto con información relacionada como carts, posts y tareas. Ofrece las operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre usuarios pero no modifica los datos en el servidor real.
+La API DummyJSON proporciona un conjunto de datos de usuarios falsos junto con información relacionada como carts, posts y tareas. Ofrece las operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre usuarios pero no modifica los datos en el servidor real. Documentación de DummyJSON para usuarios: **[DummyJSON DOCS](https://dummyjson.com/docs/users)**
 
 ### Endpoints Utilizados
 
@@ -48,4 +48,4 @@ Se elimina un usuario, simulando una solicitud DELETE. La API devuelve el usuari
 
 ---
 
-[Video mostrando el funcionamiento de la aplicación:](https://docs.flutter.dev/)
+[Video mostrando el funcionamiento de la aplicación](https://docs.flutter.dev/)
