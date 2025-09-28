@@ -15,6 +15,7 @@ class FormScreen extends StatefulWidget {
 
 class _FormScreenState extends State<FormScreen> {
   final _formKey = GlobalKey<FormState>();
+  String? _gender;
 
   late TextEditingController _firstNameCtrl;
   late TextEditingController _lastNameCtrl;
@@ -49,9 +50,11 @@ class _FormScreenState extends State<FormScreen> {
     _emailCtrl = TextEditingController(text: widget.user?.email ?? "");
     _usernameCtrl = TextEditingController(text: widget.user?.username ?? "");
     _phoneCtrl = TextEditingController(text: widget.user?.phone ?? "");
-    _ageCtrl = TextEditingController(text: widget.user?.age.toString() ?? "");
+    _ageCtrl = TextEditingController(text: widget.user?.age != null ? widget.user!.age.toString() : "",);
     _countryCtrl = TextEditingController(text: widget.user?.country ?? "");
     _titleCtrl = TextEditingController(text: widget.user?.title ?? "");
+
+    _gender = widget.user?.gender ?? "male";
   }
 
   @override
@@ -77,7 +80,7 @@ class _FormScreenState extends State<FormScreen> {
       email: _emailCtrl.text.trim(),
       username: _usernameCtrl.text.trim(),
       phone: _phoneCtrl.text.trim(),
-      gender: widget.user?.gender ?? "male",
+      gender: _gender ?? 'male',
       age: int.tryParse(_ageCtrl.text) ?? 0,
       country: _countryCtrl.text.trim(),
       title: _titleCtrl.text.trim(),
@@ -186,18 +189,44 @@ class _FormScreenState extends State<FormScreen> {
                     : null,
               ),
               SizedBox(height: 24),
-              TextFormField(
-                cursorColor: Color.fromRGBO(0, 75, 254, 1),
-                controller: _ageCtrl,
-                decoration: _inputDecoration('Age', icon: Icons.cake),
-                keyboardType: TextInputType.number,
-                validator: (v) {
-                  if (v == null || v.trim().isEmpty) return 'Age is required';
-                  final age = int.tryParse(v);
-                  if (age == null) return 'Must be a number';
-                  if (age <= 0 || age > 120) return 'Invalid age';
-                  return null;
-                },
+              Row(
+                children: [
+                  Expanded(
+                    child: DropdownButtonFormField<String>(
+                      value: _gender,
+                      decoration: _inputDecoration("Gender", icon: Icons.wc),
+                      items: const [
+                        DropdownMenuItem(value: "male", child: Text("Male")),
+                        DropdownMenuItem(value: "female", child: Text("Female")),
+                      ],
+                      onChanged: (val) {
+                        setState(() {
+                          _gender = val;
+                        });
+                      },
+                      validator: (val) {
+                        if (val == null || val.isEmpty) return "Gender is required";
+                        return null;
+                      },
+                    ),
+                  ),
+                  SizedBox(width: 16,),
+                  Expanded(
+                    child: TextFormField(
+                      cursorColor: Color.fromRGBO(0, 75, 254, 1),
+                      controller: _ageCtrl,
+                      decoration: _inputDecoration('Age', icon: Icons.cake),
+                      keyboardType: TextInputType.number,
+                      validator: (v) {
+                        if (v == null || v.trim().isEmpty) return 'Age is required';
+                        final age = int.tryParse(v);
+                        if (age == null) return 'Must be a number';
+                        if (age <= 0 || age > 120) return 'Invalid age';
+                        return null;
+                      },
+                    ),
+                  ),
+                ],
               ),
               SizedBox(height: 24),
               TextFormField(
@@ -226,7 +255,7 @@ class _FormScreenState extends State<FormScreen> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 30),
+        padding: EdgeInsets.only(left: 16, right: 16, bottom: 30),
         child: ElevatedButton.icon(
           onPressed: _onSubmit,
           style: ElevatedButton.styleFrom(

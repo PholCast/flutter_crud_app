@@ -27,7 +27,7 @@ class ErrorTile extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Ha ocurrido un error', style: TextStyle(color: Colors.red, fontSize: 16),),
+            Text('An error has ocurred while loading users', style: TextStyle(color: Colors.red, fontSize: 16),),
             SizedBox(height: 8,),
             Text(message,maxLines: 3,overflow: TextOverflow.ellipsis,),
             SizedBox(height: 8),

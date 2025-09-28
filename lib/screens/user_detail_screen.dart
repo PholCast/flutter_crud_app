@@ -172,6 +172,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
+                            color: Color.fromRGBO(0,75,254,1)
                           ),
                         ),
                       ],
@@ -192,19 +193,21 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                     children: [
                       Icon(Icons.email_outlined),
                       SizedBox(width: 20 ,),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "Email",
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            user.email,
-                            style: const TextStyle(fontSize: 15, color: Colors.black87),
-                          ),
-                        ],
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Email",
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              user.email,
+                              style: const TextStyle(fontSize: 15, color: Colors.black87),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -223,19 +226,21 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                 children: [
                   Icon(Icons.phone_outlined),
                   SizedBox(width: 20 ,),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "Phone",
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        user.phone,
-                        style: const TextStyle(fontSize: 15, color: Colors.black87),
-                      ),
-                    ],
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Phone",
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          user.phone,
+                          style: const TextStyle(fontSize: 15, color: Colors.black87),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -252,19 +257,21 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                 children: [
                   Icon(Icons.flag_outlined),
                   SizedBox(width: 20 ,),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "Country",
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        user.country ?? "-",
-                        style: const TextStyle(fontSize: 15, color: Colors.black87),
-                      ),
-                    ],
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Country",
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          user.country ?? "-",
+                          style: const TextStyle(fontSize: 15, color: Colors.black87),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

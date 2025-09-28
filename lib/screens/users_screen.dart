@@ -111,7 +111,7 @@ class _UsersScreenState extends State<UsersScreen> {
                         filled: true,
                         fillColor: Color.fromRGBO(246, 245, 244,1),
                         prefixIconColor: Color.fromRGBO(98, 98, 98,1),
-                        hintText: 'Buscar',
+                        hintText: 'Search',
                         hintStyle: TextStyle(color: Color.fromRGBO(98, 98, 98,1)),
                         prefixIcon: const Icon(Icons.search,size: 27,),
                         border: OutlineInputBorder(
