@@ -254,8 +254,14 @@ class _FormScreenState extends State<FormScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.only(left: 16, right: 16, bottom: 30),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(color: Colors.grey.shade300, width: 1),
+          ),
+          color: Colors.white,
+        ),
+        padding: EdgeInsets.only(left: 16, right: 16, bottom: 30, top: 5),
         child: ElevatedButton.icon(
           onPressed: _onSubmit,
           style: ElevatedButton.styleFrom(
