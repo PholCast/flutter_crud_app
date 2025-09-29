@@ -51,7 +51,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 30),
+            SizedBox(height: 10),
             Container(
               width: 140,
               height: 140,
@@ -281,7 +281,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
       ),
 
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 16),
+        padding: const EdgeInsets.only(bottom: 30, left: 16,right: 16, top: 10),
         child: Row(
           children: [
             Expanded(
